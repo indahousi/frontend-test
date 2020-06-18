@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react'
+import { ThemeProvider } from 'styled-components'
+import { Main } from './main'
+import { GlobalStyle } from './assets/styles/global-style'
+import {
+  colors,
+  breakpoints,
+  fontSizes as font,
+} from './assets/styles/theme-variables'
+import { RootProvider } from './store/context/root.context'
+import 'bootstrap/dist/css/bootstrap-grid.min.css'
+
+import './components/translate'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={{ colors, breakpoints, font }}>
+      <GlobalStyle />
+      <RootProvider>
+        <Suspense fallback="">
+          <Main />
+        </Suspense>
+      </RootProvider>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
